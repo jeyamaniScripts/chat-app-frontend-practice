@@ -7,10 +7,21 @@ import { useUser } from "../../context/UserContext";
 const ChatNavbar = ({ onOpenSearch }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const { user, setUser } = useUser(); // 🔥 context
+
+  const { user, setUser, chats } = useUser();
+
+  // // 🔔 TOTAL UNREAD COUNT (object → number)
+  // const totalUnread = Object.values(notifications).reduce(
+  //   (sum, count) => sum + count,
+  //   0,
+  // );
+  const totalUnread = chats.reduce(
+    (sum, chat) => sum + (chat.unreadCount || 0),
+    0,
+  );
 
   const logoutHandler = () => {
-    setUser(null); // clears context + localStorage
+    setUser(null);
     window.location.href = "/";
   };
 
@@ -29,9 +40,18 @@ const ChatNavbar = ({ onOpenSearch }) => {
 
       {/* Right side */}
       <div className="flex items-center gap-4">
-        <FaBell className="text-slate-600 cursor-pointer" />
+        {/* 🔔 Bell */}
+        <div className="relative cursor-pointer">
+          <FaBell className="text-slate-600" />
 
-        {/* Account + Dropdown */}
+          {totalUnread > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+              {totalUnread}
+            </span>
+          )}
+        </div>
+
+        {/* Account */}
         <div
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => setOpenMenu(!openMenu)}

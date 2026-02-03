@@ -5,6 +5,9 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true); // 👈 NEW
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [chats, setChats] = useState([]);
+  const [notifications, setNotifications] = useState({});
 
   useEffect(() => {
     const stored = localStorage.getItem("userInfo");
@@ -22,8 +25,22 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
 
+  console.log("noti", notifications);
+
   return (
-    <UserContext.Provider value={{ user, setUser, authLoading }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        chats,
+        setChats,
+        selectedChat,
+        setSelectedChat,
+        notifications,
+        setNotifications,
+        authLoading,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Chattt from "./components/chat/Chattt.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             <ChatPage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path:"/chattt",
+        element:<Chattt/>
       },
 
       { path: "*", element: <NotFound /> },

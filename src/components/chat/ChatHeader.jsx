@@ -1,30 +1,30 @@
-import { FaInfoCircle } from "react-icons/fa";
+import { useUser } from "../../context/UserContext";
 
-const ChatHeader = () => {
+const ChatHeader = ({ chat }) => {
+  const { user } = useUser();
+  if (!chat) return null;
+
+  const isGroup = chat.isGroupChat;
+
+  const otherUser =
+    !isGroup && Array.isArray(chat.users)
+      ? chat.users.find((u) => u._id !== user._id)
+      : null;
+
   return (
-    <div className="h-14 border-b border-slate-200 px-4
-                    flex items-center justify-between">
-      {/* Left */}
+    <div className="h-14 border-b px-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-indigo-600 text-white
-                        flex items-center justify-center font-semibold">
-          G
+        <div className="w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold">
+          {isGroup
+            ? chat.chatName?.charAt(0).toUpperCase()
+            : otherUser?.name?.charAt(0).toUpperCase() || "U"}
         </div>
 
-        <div>
-          <p className="font-medium text-slate-700">
-            Group Chat
-          </p>
-          <p className="text-xs text-slate-500">
-            3 members
-          </p>
-        </div>
+        <p className="font-medium text-slate-700">
+          {isGroup ? chat.chatName : otherUser?.name || "User"}
+        </p>
       </div>
-
-      {/* Right */}
-      <FaInfoCircle className="text-slate-600 cursor-pointer hover:text-indigo-600 transition" />
     </div>
   );
 };
-
 export default ChatHeader;
