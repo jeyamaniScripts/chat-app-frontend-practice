@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/user",
+  baseURL: "https://chat-app-back-chat.onrender.com/api/user",
 });
 
 // LOGIN

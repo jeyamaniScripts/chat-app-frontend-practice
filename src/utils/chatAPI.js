@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const chatAPI = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://chat-app-back-chat.onrender.com",
 });
 
 chatAPI.interceptors.request.use((config) => {
