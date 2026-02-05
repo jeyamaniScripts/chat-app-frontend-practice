@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://chat-app-back-auth.onrender.com/api/user",
+  baseURL: "http://localhost:5000/api/user",
 });
+
 
 // 🔥 Request Interceptor
 API.interceptors.request.use((config) => {
